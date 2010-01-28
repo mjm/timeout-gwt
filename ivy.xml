@@ -1,0 +1,31 @@
+<ivy-module version="2.0"
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xsi:noNamespaceSchemaLocation="http://ant.apache.org/ivy/schemas/ivy.xsd">
+    <info organisation="net.moriaritys.triumph" module="triumph"/>
+    <configurations>
+        <conf name="default"/>
+    </configurations>
+    <dependencies>
+        <dependency org="com.google.gwt" name="gwt-servlet" rev="2.0.0"/>
+        <dependency org="com.google.gwt" name="gwt-user" rev="2.0.0"/>
+        <dependency org="com.google.gwt" name="gwt-dev" rev="2.0.0"/>
+        <dependency org="org.apache.ibatis" name="ibatis-sqlmap" rev="3.0-beta-4"/>
+        <dependency org="org.springframework" name="org.springframework.core" rev="3.0.0.RELEASE"
+                    conf="default->log4j"/>
+        <dependency org="org.springframework" name="org.springframework.beans" rev="3.0.0.RELEASE"
+                    conf="default->bytecode-proxy"/>
+        <dependency org="org.springframework" name="org.springframework.orm" rev="3.0.0.RELEASE"
+                    conf="default->web"/>
+        <dependency org="org.springframework" name="org.springframework.web" rev="3.0.0.RELEASE"
+                    conf="default->log4j"/>
+        <dependency org="org.apache.log4j" name="com.springsource.org.apache.log4j" rev="1.2.15"/>
+        <dependency org="net.sourceforge.cglib" name="com.springsource.net.sf.cglib" rev="2.2.0"/>
+        <dependency org="org.postgresql" name="com.springsource.org.postgresql.jdbc4" rev="8.3.604"/>
+        <dependency org="com.mchange.c3p0" name="com.springsource.com.mchange.v2.c3p0" rev="0.9.1.2"/>
+        <dependency org="net.customware.gwt.dispatch" name="gwt-dispatch" rev="1.1.0-SNAPSHOT"/>
+        <dependency org="net.customware.gwt.presenter" name="gwt-presenter" rev="1.1.0-replace-SNAPSHOT"/>
+        <dependency org="com.google.gwt" name="gin" rev="1.0"/>
+        <dependency org="com.google.inject" name="guice" rev="2.0"/>
+        <dependency org="org.mockito" name="com.springsource.org.mockito" rev="1.8.0"/>
+    </dependencies>
+</ivy-module>

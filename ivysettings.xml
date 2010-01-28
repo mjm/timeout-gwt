@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<ivysettings>
+  <settings defaultResolver="default"/>
+  <resolvers>
+    <chain name="default">
+      <url name="com.springsource.repository.bundles.release">
+        <ivy
+          pattern="http://repository.springsource.com/ivy/bundles/release/[organisation]/[module]/[revision]/[artifact]-[revision].[ext]"/>
+        <artifact pattern="http://repository.springsource.com/ivy/bundles/release/[organisation]/[module]/[revision]/[artifact]-[revision].[ext]"/>
+      </url>
+      <url name="com.springsource.repository.bundles.external">
+        <ivy
+          pattern="http://repository.springsource.com/ivy/bundles/external/[organisation]/[module]/[revision]/[artifact]-[revision].[ext]"/>
+        <artifact pattern="http://repository.springsource.com/ivy/bundles/external/[organisation]/[module]/[revision]/[artifact]-[revision].[ext]"/>
+      </url>
+      <ibiblio name="archiva" m2compatible="true" usepoms="false"
+        root="http://mmoriarity.ath.cx:8080/archiva/repository/internal/"/>
+      <ibiblio name="gwt-dispatch" m2compatible="true" usepoms="false"
+        root="http://gwt-dispatch.googlecode.com/svn/maven2"/>
+      <ibiblio name="gwt-presenter" m2compatible="true" usepoms="false"
+        root="http://gwt-presenter.googlecode.com/svn/maven2"/>
+    </chain>
+  </resolvers>
+</ivysettings>
