@@ -7,7 +7,9 @@
        http://www.springframework.org/schema/context
        http://www.springframework.org/schema/context/spring-context.xsd">
 
-    <context:component-scan annotation-config="true" base-package="net.moriaritys.timeout.server" />
+    <context:component-scan base-package="net.moriaritys.timeout.server" />
+    <context:component-scan base-package="net.customware.gwt.dispatch.server" />
+    <context:annotation-config />
 
     <bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalEntityManagerFactoryBean">
         <property name="persistenceUnitName" value="transactions-optional"/>

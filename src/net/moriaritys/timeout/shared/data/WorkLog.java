@@ -1,8 +1,5 @@
 package net.moriaritys.timeout.shared.data;
 
-import com.google.appengine.api.datastore.Key;
-import com.google.appengine.api.users.User;
-
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -17,16 +14,16 @@ import java.util.Date;
 public class WorkLog implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Key key;
+    private Long key;
 
     private Date day;
-    private User user;
+    private String userId;
 
-    public Key getKey() {
+    public Long getKey() {
         return key;
     }
 
-    public void setKey(final Key key) {
+    public void setKey(final Long key) {
         this.key = key;
     }
 
@@ -38,11 +35,11 @@ public class WorkLog implements Serializable {
         this.day = day;
     }
 
-    public User getUser() {
-        return user;
+    public String getUserId() {
+        return userId;
     }
 
-    public void setUser(final User user) {
-        this.user = user;
+    public void setUserId(final String user) {
+        this.userId = user;
     }
 }
