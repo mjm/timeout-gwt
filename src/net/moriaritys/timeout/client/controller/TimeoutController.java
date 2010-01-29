@@ -1,24 +1,24 @@
 package net.moriaritys.timeout.client.controller;
 
 import com.google.gwt.user.client.ui.HasWidgets;
-import com.google.gwt.user.client.ui.Label;
 import com.google.inject.Inject;
+import net.moriaritys.timeout.client.root.RootPresenter;
 
 /**
  *
  */
 public class TimeoutController {
-    private HasWidgets container;
+    private RootPresenter root;
 
     @Inject
-    TimeoutController() {
-
+    TimeoutController(final RootPresenter root) {
+        this.root = root;
     }
 
     public void go(final HasWidgets container) {
-        this.container = container;
-
         container.clear();
-        container.add(new Label("Loaded..."));
+        container.add(root.getDisplay().asWidget());
+
+        root.bind();
     }
 }
