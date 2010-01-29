@@ -45,13 +45,25 @@ ivy is in at least one of ant's lib dir or the local lib dir. -->
 
     <path id="project.class.path">
         <pathelement location="war/WEB-INF/classes"/>
-        <fileset dir="lib/jar" includes="**/*.jar"/>
+        <fileset dir="war/WEB-INF/lib" includes="**/*.jar"/>
+    </path>
+
+    <path id="tools.class.path">
+        <path refid="project.class.path"/>
+        <pathelement location="${appengine.sdk}/lib/appengine-tools-api.jar"/>
+        <fileset dir="${appengine.sdk}/lib/tools">
+            <include name="**/asm-*.jar"/>
+            <include name="**/datanucleus-enhancer-*.jar"/>
+        </fileset>
     </path>
 
     <target name="libs" depends="resolve" description="Copy libs to WEB-INF/lib">
         <mkdir dir="war/WEB-INF/lib"/>
         <copy todir="war/WEB-INF/lib">
             <fileset dir="lib/jar" includes="*.jar" excludes="gwt-dev.jar"/>
+        </copy>
+        <copy todir="war/WEB-INF/lib" flatten="true">
+            <fileset dir="${appengine.sdk}/lib/user" includes="**/*.jar"/>
         </copy>
     </target>
 
@@ -66,6 +78,14 @@ ivy is in at least one of ant's lib dir or the local lib dir. -->
         <copy todir="war/WEB-INF/classes">
             <fileset dir="${java.src.dir}" excludes="**/*.java"/>
         </copy>
+        <taskdef name="datanucleusenhancer"
+                 classpathref="tools.class.path"
+                 classname="org.datanucleus.enhancer.tools.EnhancerTask"/>
+        <datanucleusenhancer
+                classpathref="tools.class.path"
+                failonerror="true">
+            <fileset dir="war/WEB-INF/classes" includes="**/*.class"/>
+        </datanucleusenhancer>
     </target>
 
     <target name="gwtc" depends="javac" description="GWT compile to JavaScript">
@@ -86,9 +106,12 @@ ivy is in at least one of ant's lib dir or the local lib dir. -->
             <classpath>
                 <pathelement location="${java.src.dir}"/>
                 <path refid="project.class.path"/>
+                <path refid="tools.class.path"/>
             </classpath>
             <jvmarg value="-Xmx256M"/>
             <jvmarg value="-agentlib:jdwp=transport=dt_socket,server=y,address=8001,suspend=n"/>
+            <arg value="-server"/>
+            <arg value="com.google.appengine.tools.development.gwt.AppEngineLauncher"/>
             <arg value="-startupUrl"/>
             <arg value="${gwt.module.html}"/>
             <!-- Additional arguments like -style PRETTY or -logLevel DEBUG -->
@@ -161,7 +184,7 @@ ivy is in at least one of ant's lib dir or the local lib dir. -->
         <zip destfile="build/timeout.war" basedir="war"/>
     </target>
 
-    <target name="deploy" depends="war">
+<!--    <target name="deploy" depends="war">
         <taskdef name="deploy" classname="org.apache.catalina.ant.DeployTask"
                  classpath="${tomcat.home}/lib/catalina-ant.jar"/>
         <taskdef name="undeploy" classname="org.apache.catalina.ant.UndeployTask"
@@ -176,7 +199,7 @@ ivy is in at least one of ant's lib dir or the local lib dir. -->
                 password="${tomcat.password}"
                 path="/timeout"
                 war="file:${basedir}/build/timeout.war"/>
-    </target>
+    </target>-->
 
     <target name="clean" description="Cleans this project">
         <delete dir="war/WEB-INF/classes" failonerror="false"/>
