@@ -19,6 +19,9 @@ public class WorkLog implements Serializable {
     @Basic(optional = false)
     private String userId;
 
+    @OneToMany(mappedBy = "log")
+    private List<WorkLogEntry> entries;
+
     public Long getKey() {
         return key;
     }
@@ -41,5 +44,13 @@ public class WorkLog implements Serializable {
 
     public void setUserId(final String user) {
         this.userId = user;
+    }
+
+    public List<WorkLogEntry> getEntries() {
+        return entries;
+    }
+
+    public void setEntries(final List<WorkLogEntry> entries) {
+        this.entries = entries;
     }
 }
