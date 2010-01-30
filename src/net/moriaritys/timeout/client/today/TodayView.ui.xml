@@ -2,7 +2,7 @@
              xmlns:g="urn:import:com.google.gwt.user.client.ui">
     <g:DockLayoutPanel unit="EM">
         <g:center>
-            <g:HTML>Test today view</g:HTML>
+            <g:Label ui:field="label"/>
         </g:center>
     </g:DockLayoutPanel>
 </ui:UiBinder>

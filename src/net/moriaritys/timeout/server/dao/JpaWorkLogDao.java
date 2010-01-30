@@ -5,8 +5,11 @@ import net.moriaritys.timeout.shared.data.WorkLog;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -35,6 +38,36 @@ public class JpaWorkLogDao implements WorkLogDao {
         query.setParameter("key", key);
         query.setParameter("user", user.getUserId());
         return (WorkLog) query.getSingleResult();
+    }
+
+    @Override
+    public WorkLog getOrCreateToday(final User user) {
+        WorkLog log;
+        Date curDate = getCurrentDate();
+
+        try {
+            Query query = entityManager.createQuery(
+                    "select log from WorkLog log where log.userId = :user and log.day = :day");
+            query.setParameter("user", user.getUserId());
+            query.setParameter("day", curDate);
+            log = (WorkLog) query.getSingleResult();
+        } catch (final NoResultException e) {
+            log = new WorkLog();
+            log.setDay(curDate);
+            log.setUserId(user.getUserId());
+            log = entityManager.merge(log);
+        }
+
+        return log;
+    }
+
+    private Date getCurrentDate() {
+        Calendar calendar = Calendar.getInstance();
+        calendar.clear(Calendar.HOUR_OF_DAY);
+        calendar.clear(Calendar.MINUTE);
+        calendar.clear(Calendar.SECOND);
+        calendar.clear(Calendar.MILLISECOND);
+        return calendar.getTime();
     }
 
     @Override
