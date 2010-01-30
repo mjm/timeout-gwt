@@ -13,7 +13,7 @@ public interface WorkLogDao {
 
     WorkLog getByKey(User user, Long id);
 
-    WorkLog getOrCreateToday(User user);
+    WorkLog getOrCreateToday(User user, String today);
 
     void add(User user, WorkLog log);
 

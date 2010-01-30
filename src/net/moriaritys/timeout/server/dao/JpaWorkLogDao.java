@@ -8,8 +8,6 @@ import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -41,9 +39,8 @@ public class JpaWorkLogDao implements WorkLogDao {
     }
 
     @Override
-    public WorkLog getOrCreateToday(final User user) {
+    public WorkLog getOrCreateToday(final User user, final String curDate) {
         WorkLog log;
-        Date curDate = getCurrentDate();
 
         try {
             Query query = entityManager.createQuery(
@@ -59,15 +56,6 @@ public class JpaWorkLogDao implements WorkLogDao {
         }
 
         return log;
-    }
-
-    private Date getCurrentDate() {
-        Calendar calendar = Calendar.getInstance();
-        calendar.clear(Calendar.HOUR_OF_DAY);
-        calendar.clear(Calendar.MINUTE);
-        calendar.clear(Calendar.SECOND);
-        calendar.clear(Calendar.MILLISECOND);
-        return calendar.getTime();
     }
 
     @Override

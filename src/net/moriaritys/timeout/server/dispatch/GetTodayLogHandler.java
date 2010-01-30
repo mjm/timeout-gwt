@@ -34,7 +34,7 @@ public class GetTodayLogHandler implements ActionHandler<GetTodayLog, GetLogResu
     @Override
     public GetLogResult execute(final GetTodayLog getTodayLog,
                                 final ExecutionContext executionContext) throws ActionException {
-        return new GetLogResult(logDao.getOrCreateToday(userService.getCurrentUser()));
+        return new GetLogResult(logDao.getOrCreateToday(userService.getCurrentUser(), getTodayLog.getDate()));
     }
 
     @Override

@@ -1,11 +1,8 @@
 package net.moriaritys.timeout.shared.data;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.io.Serializable;
-import java.util.Date;
+import java.util.List;
 
 /**
  *
@@ -16,7 +13,10 @@ public class WorkLog implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long key;
 
-    private Date day;
+    // Using a string because we want to represent a day and not worry about time zones
+    @Basic(optional = false)
+    private String day;
+    @Basic(optional = false)
     private String userId;
 
     public Long getKey() {
@@ -27,11 +27,11 @@ public class WorkLog implements Serializable {
         this.key = key;
     }
 
-    public Date getDay() {
+    public String getDay() {
         return day;
     }
 
-    public void setDay(final Date day) {
+    public void setDay(final String day) {
         this.day = day;
     }
 

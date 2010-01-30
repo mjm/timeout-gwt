@@ -1,30 +1,39 @@
 package net.moriaritys.timeout.client.today;
 
-import com.google.gwt.user.client.rpc.AsyncCallback;
-import com.google.gwt.user.client.ui.HasText;
+import com.google.gwt.user.client.ui.HasValue;
 import com.google.inject.Inject;
+import com.google.inject.Provider;
 import net.customware.gwt.dispatch.client.DispatchAsync;
 import net.customware.gwt.presenter.client.EventBus;
 import net.customware.gwt.presenter.client.widget.WidgetDisplay;
 import net.customware.gwt.presenter.client.widget.WidgetPresenter;
+import net.moriaritys.timeout.client.callback.GotWorkLog;
+import net.moriaritys.timeout.client.inject.CurrentDate;
 import net.moriaritys.timeout.client.today.TodayPresenter.Display;
 import net.moriaritys.timeout.shared.action.GetTodayLog;
-import net.moriaritys.timeout.shared.result.GetLogResult;
+import net.moriaritys.timeout.shared.data.WorkLog;
 
 /**
  *
  */
 public class TodayPresenter extends WidgetPresenter<Display> {
     public static interface Display extends WidgetDisplay {
-        HasText getLabel();
+        HasValue<String> getDateLabel();
+
+        // TODO HasRows<...> getEntryRows();
     }
 
     private final DispatchAsync dispatch;
+    private final Provider<String> dateProvider;
+
+    private WorkLog log;
 
     @Inject
-    TodayPresenter(final Display display, final EventBus eventBus, final DispatchAsync dispatch) {
+    TodayPresenter(final Display display, final EventBus eventBus, final DispatchAsync dispatch,
+                   @CurrentDate final Provider<String> dateProvider) {
         super(display, eventBus);
         this.dispatch = dispatch;
+        this.dateProvider = dateProvider;
     }
 
     @Override
@@ -37,15 +46,12 @@ public class TodayPresenter extends WidgetPresenter<Display> {
 
     @Override
     protected void onRevealDisplay() {
-        dispatch.execute(new GetTodayLog(), new AsyncCallback<GetLogResult>() {
+        dispatch.execute(new GetTodayLog(dateProvider.get()), new GotWorkLog() {
             @Override
-            public void onFailure(final Throwable throwable) {
+            protected void got(final WorkLog log) {
+                TodayPresenter.this.log = log;
 
-            }
-
-            @Override
-            public void onSuccess(final GetLogResult getLogResult) {
-                display.getLabel().setText("" + getLogResult.getWorkLog().getDay() + ": " + getLogResult.getWorkLog().getKey());
+                display.getDateLabel().setValue(log.getDay());
             }
         });
     }
