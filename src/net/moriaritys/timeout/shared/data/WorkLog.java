@@ -2,6 +2,7 @@ package net.moriaritys.timeout.shared.data;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -47,6 +48,9 @@ public class WorkLog implements Serializable {
     }
 
     public List<WorkLogEntry> getEntries() {
+        if (entries == null) {
+            entries = new ArrayList<WorkLogEntry>();
+        }
         return entries;
     }
 

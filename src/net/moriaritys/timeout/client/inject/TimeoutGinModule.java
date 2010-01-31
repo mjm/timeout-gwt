@@ -8,6 +8,10 @@ import net.customware.gwt.presenter.client.gin.AbstractPresenterModule;
 import net.customware.gwt.presenter.client.place.PlaceManager;
 import net.moriaritys.timeout.client.controller.TimeoutController;
 import net.moriaritys.timeout.client.controller.TimeoutPlaceManager;
+import net.moriaritys.timeout.client.entries.EntriesPresenter;
+import net.moriaritys.timeout.client.entries.EntriesView;
+import net.moriaritys.timeout.client.entries.EntryRowPresenter;
+import net.moriaritys.timeout.client.entries.EntryRowView;
 import net.moriaritys.timeout.client.root.RootPresenter;
 import net.moriaritys.timeout.client.root.RootView;
 import net.moriaritys.timeout.client.today.TodayPlace;
@@ -33,6 +37,10 @@ public class TimeoutGinModule extends AbstractPresenterModule {
 
         bindPresenter(RootPresenter.class, RootPresenter.Display.class, RootView.class);
         bindPresenter(TodayPresenter.class, TodayPresenter.Display.class, TodayView.class);
+        bindPresenter(EntriesPresenter.class, EntriesPresenter.Display.class, EntriesView.class);
+
+        bind(EntryRowPresenter.class);
+        bindDisplay(EntryRowPresenter.Display.class, EntryRowView.class);
     }
 
     static class CurrentDateProvider implements Provider<String> {
