@@ -1,8 +1,18 @@
 <ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
              xmlns:g="urn:import:com.google.gwt.user.client.ui"
              xmlns:ent="urn:import:net.moriaritys.timeout.client.entries">
+    <ui:style>
+        .currentDate {
+            text-align: center;
+            background-color: #DEF8E7;
+            font-weight: bold;
+            font-size: 1.2em;
+            padding: 3px;
+        }
+    </ui:style>
+
     <g:FlowPanel>
         <ent:EntriesView ui:field="entries"/>
-        <g:Label ui:field="label"/>
+        <g:Label styleName="{style.currentDate}" ui:field="label"/>
     </g:FlowPanel>
 </ui:UiBinder>

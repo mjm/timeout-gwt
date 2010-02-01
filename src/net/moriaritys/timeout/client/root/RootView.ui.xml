@@ -1,13 +1,35 @@
 <ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
              xmlns:g="urn:import:com.google.gwt.user.client.ui">
+    <ui:style>
+        @def tabColor #ACD4EB;
+        @external gwt-TabLayoutPanelTab, gwt-TabLayoutPanelTabs;
+
+        .gwt-TabLayoutPanelTab {
+            background-color: tabColor;
+            cursor: pointer;
+            padding: 5px;
+            margin-right: 10px;
+            font-size: 1.1em;
+        }
+
+        .gwt-TabLayoutPanelTabs {
+            padding: 0 30px;
+            border-bottom: 3px solid tabColor;
+        }
+
+        .header {
+            padding: 0 10px;
+        }
+    </ui:style>
+
     <g:DockLayoutPanel unit="EM">
         <g:north size="5">
-            <g:HTML>
+            <g:HTML styleName="{style.header}">
                 <h1>timeout</h1>
             </g:HTML>
         </g:north>
         <g:center>
-            <g:TabLayoutPanel barHeight="1.5" barUnit="EM" ui:field="tabPanel">
+            <g:TabLayoutPanel barHeight="2.5" barUnit="EM" ui:field="tabPanel">
             </g:TabLayoutPanel>
         </g:center>
     </g:DockLayoutPanel>

@@ -28,6 +28,8 @@ public class Timeout implements EntryPoint {
     public void onModuleLoad() {
         injector = GWT.create(TimeoutGinjector.class);
 
+        injector.getResources().css().ensureInjected();
+
         LoginServiceAsync login = GWT.create(LoginService.class);
         login.login(GWT.getHostPageBaseURL(), new AsyncCallback<LoginInfo>() {
             @Override
