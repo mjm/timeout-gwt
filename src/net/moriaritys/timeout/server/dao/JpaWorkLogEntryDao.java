@@ -9,7 +9,9 @@ import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 /**
  *
@@ -21,6 +23,15 @@ public class JpaWorkLogEntryDao implements WorkLogEntryDao {
     @PersistenceContext
     public void setEntityManager(final EntityManager entityManager) {
         this.entityManager = entityManager;
+    }
+
+    @Override
+    public List<WorkLogEntry> getCompletedEntries(final User user, final WorkLog log) {
+        Query query = entityManager.createQuery(
+                "select e from WorkLogEntry e " +
+                        "where e.log = :key and e.endTime is not null");
+        query.setParameter("key", log.getKey());
+        return new ArrayList<WorkLogEntry>(query.getResultList());
     }
 
     @Override
