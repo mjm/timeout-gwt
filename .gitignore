@@ -1,5 +1,7 @@
 lib
 .idea
+war/timeout
+war/WEB-INF/appengine-generated
 war/WEB-INF/classes
 war/WEB-INF/lib
 *.iml
