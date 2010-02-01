@@ -50,6 +50,7 @@ ivy is in at least one of ant's lib dir or the local lib dir. -->
 
     <path id="tools.class.path">
         <path refid="project.class.path"/>
+        <pathelement location="lib/jar/gwt-dev.jar"/>
         <pathelement location="${appengine.sdk}/lib/appengine-tools-api.jar"/>
         <fileset dir="${appengine.sdk}/lib/tools">
             <include name="**/asm-*.jar"/>
@@ -110,6 +111,7 @@ ivy is in at least one of ant's lib dir or the local lib dir. -->
             </classpath>
             <jvmarg value="-Xmx256M"/>
             <jvmarg value="-agentlib:jdwp=transport=dt_socket,server=y,address=8001,suspend=n"/>
+            <jvmarg value="-javaagent:${appengine.sdk}/lib/agent/appengine-agent.jar"/>
             <arg value="-server"/>
             <arg value="com.google.appengine.tools.development.gwt.AppEngineLauncher"/>
             <arg value="-startupUrl"/>
@@ -184,7 +186,7 @@ ivy is in at least one of ant's lib dir or the local lib dir. -->
         <zip destfile="build/timeout.war" basedir="war"/>
     </target>
 
-<!--    <target name="deploy" depends="war">
+    <!--    <target name="deploy" depends="war">
         <taskdef name="deploy" classname="org.apache.catalina.ant.DeployTask"
                  classpath="${tomcat.home}/lib/catalina-ant.jar"/>
         <taskdef name="undeploy" classname="org.apache.catalina.ant.UndeployTask"
