@@ -10,13 +10,15 @@ import com.google.gwt.user.client.ui.*;
 import com.google.inject.Inject;
 import net.moriaritys.timeout.client.entries.EntriesPresenter;
 import net.moriaritys.timeout.client.entries.EntriesView;
+import net.moriaritys.timeout.client.timer.TimerPresenter;
+import net.moriaritys.timeout.client.timer.TimerView;
 import net.moriaritys.timeout.client.today.TodayPresenter.Display;
 
 /**
  *
  */
 public class TodayView extends Composite implements Display {
-    static interface Binder extends UiBinder<FlowPanel, TodayView> {
+    static interface Binder extends UiBinder<DockLayoutPanel, TodayView> {
     }
 
     private static final Binder binder = GWT.create(Binder.class);
@@ -57,14 +59,17 @@ public class TodayView extends Composite implements Display {
     Label label;
     @UiField(provided = true)
     EntriesView entries;
+    @UiField(provided = true)
+    TimerView timer;
 
     private HasValue<String> labelWrapper;
 
     @Inject
-    TodayView(final EntriesPresenter.Display entries) {
+    TodayView(final EntriesPresenter.Display entries, final TimerPresenter.Display timer) {
         this.entries = (EntriesView) entries;
+        this.timer = (TimerView) timer;
 
-        FlowPanel panel = binder.createAndBindUi(this);
+        Panel panel = binder.createAndBindUi(this);
         labelWrapper = new LabelValueWrapper(label);
 
         initWidget(panel);

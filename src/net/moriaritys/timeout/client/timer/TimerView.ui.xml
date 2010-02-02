@@ -1,0 +1,64 @@
+<ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
+             xmlns:g='urn:import:com.google.gwt.user.client.ui'>
+    <ui:style>
+        .timerTable td {
+            text-align: center;
+        }
+
+        .buttonContainer {
+            margin: 0 auto;
+            text-align: center;
+        }
+    </ui:style>
+
+    <g:FlowPanel>
+        <g:HTMLPanel>
+            <table class="{style.timerTable}" width="100%">
+                <tr>
+                    <td colspan="2" width="33%">
+                        <ui:msg>Start Time</ui:msg>
+                    </td>
+                    <td colspan="2" width="33%">
+                        <ui:msg>Hours Needed</ui:msg>
+                    </td>
+                    <td colspan="2" width="33%">
+                        <ui:msg>Est. Departure</ui:msg>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2" width="33%">
+                        <g:Label ui:field="startLabel"/>
+                    </td>
+                    <td colspan="2" width="33%">
+                        <g:TextBox ui:field="hoursNeededField"/>
+                    </td>
+                    <td colspan="2" width="33%">
+                        <g:Label ui:field="estimatedDepartureLabel"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="3" width="50%">
+                        <ui:msg>Time Elapsed</ui:msg>
+                    </td>
+                    <td colspan="3" width="50%">
+                        <ui:msg>Time Left</ui:msg>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="3" width="50%">
+                        <g:Label ui:field="timeElapsedLabel"/>
+                    </td>
+                    <td colspan="3" width="50%">
+                        <g:Label ui:field="timeLeftLabel"/>
+                    </td>
+                </tr>
+            </table>
+        </g:HTMLPanel>
+
+        <g:FlowPanel styleName="{style.buttonContainer}">
+            <g:Button ui:field="startStopButton">
+                <ui:msg>Start Timer</ui:msg>
+            </g:Button>
+        </g:FlowPanel>
+    </g:FlowPanel>
+</ui:UiBinder>

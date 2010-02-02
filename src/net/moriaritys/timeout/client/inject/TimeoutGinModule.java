@@ -14,6 +14,8 @@ import net.moriaritys.timeout.client.entries.EntryRowPresenter;
 import net.moriaritys.timeout.client.entries.EntryRowView;
 import net.moriaritys.timeout.client.root.RootPresenter;
 import net.moriaritys.timeout.client.root.RootView;
+import net.moriaritys.timeout.client.timer.TimerPresenter;
+import net.moriaritys.timeout.client.timer.TimerView;
 import net.moriaritys.timeout.client.today.TodayPlace;
 import net.moriaritys.timeout.client.today.TodayPresenter;
 import net.moriaritys.timeout.client.today.TodayView;
@@ -38,6 +40,7 @@ public class TimeoutGinModule extends AbstractPresenterModule {
         bindPresenter(RootPresenter.class, RootPresenter.Display.class, RootView.class);
         bindPresenter(TodayPresenter.class, TodayPresenter.Display.class, TodayView.class);
         bindPresenter(EntriesPresenter.class, EntriesPresenter.Display.class, EntriesView.class);
+        bindPresenter(TimerPresenter.class, TimerPresenter.Display.class, TimerView.class);
 
         bind(EntryRowPresenter.class);
         bindDisplay(EntryRowPresenter.Display.class, EntryRowView.class);

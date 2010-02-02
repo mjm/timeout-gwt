@@ -1,6 +1,7 @@
 <ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
              xmlns:g="urn:import:com.google.gwt.user.client.ui"
-             xmlns:ent="urn:import:net.moriaritys.timeout.client.entries">
+             xmlns:ent="urn:import:net.moriaritys.timeout.client.entries"
+             xmlns:tim="urn:import:net.moriaritys.timeout.client.timer">
     <ui:style>
         .currentDate {
             text-align: center;
@@ -9,10 +10,21 @@
             font-size: 1.2em;
             padding: 3px;
         }
+
+        .panel {
+            overflow: auto;
+        }
     </ui:style>
 
-    <g:FlowPanel>
-        <ent:EntriesView ui:field="entries"/>
-        <g:Label styleName="{style.currentDate}" ui:field="label"/>
-    </g:FlowPanel>
+    <g:DockLayoutPanel unit="EM">
+        <g:north size="2">
+            <g:Label styleName="{style.currentDate}" ui:field="label"/>
+        </g:north>
+        <g:center>
+            <g:FlowPanel styleName="{style.panel}">
+                <ent:EntriesView ui:field="entries"/>
+                <tim:TimerView ui:field="timer"/>
+            </g:FlowPanel>
+        </g:center>
+    </g:DockLayoutPanel>
 </ui:UiBinder>
