@@ -61,6 +61,7 @@ public class TodayPresenter extends WidgetPresenter<Display> {
                     @Override
                     protected void got(final WorkLogEntry entry) {
                         timer.setEntry(entry);
+                        timer.revealDisplay();
                     }
                 });
 

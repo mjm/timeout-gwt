@@ -20,15 +20,15 @@ public class TimerView extends Composite implements Display {
     Button startStopButton;
 
     @UiField
-    Label startLabel = new Label("--:--");
+    Label startLabel;
     @UiField
-    TextBox hoursNeededField = new TextBox();
+    TextBox hoursNeededField;
     @UiField
-    Label estimatedDepartureLabel = new Label("--:--");
+    Label estimatedDepartureLabel;
     @UiField
-    Label timeElapsedLabel = new Label("--:--");
+    Label timeElapsedLabel;
     @UiField
-    Label timeLeftLabel = new Label("--:--");
+    Label timeLeftLabel;
 
     TimerView() {
         FlowPanel panel = binder.createAndBindUi(this);

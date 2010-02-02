@@ -28,8 +28,7 @@ public class JpaWorkLogEntryDao implements WorkLogEntryDao {
     @Override
     public List<WorkLogEntry> getCompletedEntries(final User user, final WorkLog log) {
         Query query = entityManager.createQuery(
-                "select e from WorkLogEntry e " +
-                        "where e.log = :key and e.endTime is not null");
+                "select e from WorkLogEntry e where e.log = :key and e.endTime is not null");
         query.setParameter("key", log.getKey());
         return new ArrayList<WorkLogEntry>(query.getResultList());
     }
@@ -44,7 +43,9 @@ public class JpaWorkLogEntryDao implements WorkLogEntryDao {
             query.setParameter("key", log.getKey());
             return (WorkLogEntry) query.getSingleResult();
         } catch (final NoResultException e) {
-            return null;
+            WorkLogEntry entry = new WorkLogEntry();
+            entry.setLog(log);
+            return entry;
         }
     }
 
@@ -52,9 +53,7 @@ public class JpaWorkLogEntryDao implements WorkLogEntryDao {
     public WorkLogEntry startTimer(final User user, final WorkLog log) {
         WorkLogEntry entry = getRunningEntry(user, log);
 
-        if (entry == null) {
-            entry = new WorkLogEntry();
-            entry.setLog(log);
+        if (entry.getStartTime() == null) {
             entry.setStartTime(new Date());
             entityManager.persist(entry);
         }

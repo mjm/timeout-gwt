@@ -8,6 +8,7 @@ import net.customware.gwt.presenter.client.EventBus;
 import net.customware.gwt.presenter.client.widget.WidgetDisplay;
 import net.customware.gwt.presenter.client.widget.WidgetPresenter;
 import net.moriaritys.timeout.client.timer.TimerPresenter.Display;
+import net.moriaritys.timeout.shared.data.WorkLog;
 import net.moriaritys.timeout.shared.data.WorkLogEntry;
 
 /**
@@ -28,11 +29,16 @@ public class TimerPresenter extends WidgetPresenter<Display> {
         HasClickHandlers getStartStopButton();
     }
 
+    private WorkLog log;
     private WorkLogEntry entry;
 
     @Inject
     TimerPresenter(final Display display, final EventBus eventBus) {
         super(display, eventBus);
+    }
+
+    public void setLog(final WorkLog log) {
+        this.log = log;
     }
 
     public void setEntry(final WorkLogEntry entry) {
