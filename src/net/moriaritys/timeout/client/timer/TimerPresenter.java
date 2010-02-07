@@ -5,6 +5,7 @@ import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.HasClickHandlers;
 import com.google.gwt.event.logical.shared.ValueChangeEvent;
 import com.google.gwt.event.logical.shared.ValueChangeHandler;
+import com.google.gwt.user.client.Timer;
 import com.google.gwt.user.client.ui.HasText;
 import com.google.gwt.user.client.ui.HasValue;
 import com.google.inject.Inject;
@@ -40,10 +41,20 @@ public class TimerPresenter extends WidgetPresenter<Display> {
         HasClickHandlers getStartStopButton();
     }
 
+    private class UpdateTimer extends Timer {
+        @Override
+        public void run() {
+            if (log != null && entry != null) {
+                updateTimes();
+            }
+        }
+    }
+
     private class HoursNeededChanged implements ValueChangeHandler<String> {
         @Override
         public void onValueChange(final ValueChangeEvent<String> event) {
             log.setGoal(durationConverter.from(event.getValue()));
+            updateDisplay();
         }
     }
 
@@ -61,6 +72,8 @@ public class TimerPresenter extends WidgetPresenter<Display> {
 
     private WorkLog log;
     private WorkLogEntry entry;
+
+    private final Timer updateTimer = new UpdateTimer();
 
     private final DispatchAsync dispatch;
     private final DurationConverter durationConverter;
@@ -90,24 +103,36 @@ public class TimerPresenter extends WidgetPresenter<Display> {
     protected void onBind() {
         registerHandler(display.getHoursNeededField().addValueChangeHandler(new HoursNeededChanged()));
         registerHandler(display.getStartStopButton().addClickHandler(new StartStopClicked()));
+
+        updateTimer.scheduleRepeating(1000);
     }
 
     @Override
     protected void onUnbind() {
+        updateTimer.cancel();
     }
 
     @Override
     protected void onRevealDisplay() {
+        updateDisplay();
+        updateTimes();
+    }
+
+    private void updateDisplay() {
         String goal = durationConverter.to(log.getGoal(), false);
-        String elapsed = durationConverter.to(entry.getTimeElapsed());
-        String left = durationConverter.to(log.getTimeLeft());
         String start = timeConverter.to(entry.getStartTime());
         String end = timeConverter.to(log.getEstimatedEndTime());
 
         display.getHoursNeededField().setValue(goal);
-        display.getTimeElapsedLabel().setText(elapsed);
-        display.getTimeLeftLabel().setText(left);
         display.getStartLabel().setText(start);
         display.getEstimatedDepartureLabel().setText(end);
+    }
+
+    private void updateTimes() {
+        String elapsed = durationConverter.to(entry.getTimeElapsed());
+        String left = durationConverter.to(log.getTimeLeft());
+
+        display.getTimeElapsedLabel().setText(elapsed);
+        display.getTimeLeftLabel().setText(left);
     }
 }
