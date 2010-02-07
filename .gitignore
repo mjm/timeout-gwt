@@ -1,5 +1,6 @@
 lib
 .idea
+.DS_Store
 war/timeout
 war/WEB-INF/appengine-generated
 war/WEB-INF/classes
