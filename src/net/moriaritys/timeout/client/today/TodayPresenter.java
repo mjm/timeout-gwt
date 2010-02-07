@@ -60,6 +60,7 @@ public class TodayPresenter extends WidgetPresenter<Display> {
                 dispatch.execute(new GetRunningEntry(log), new GotLogEntry() {
                     @Override
                     protected void got(final WorkLogEntry entry) {
+                        timer.setLog(log);
                         timer.setEntry(entry);
                         timer.revealDisplay();
                     }

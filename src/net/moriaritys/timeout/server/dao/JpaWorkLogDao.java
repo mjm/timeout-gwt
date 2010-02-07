@@ -51,6 +51,7 @@ public class JpaWorkLogDao implements WorkLogDao {
         } catch (final NoResultException e) {
             log = new WorkLog();
             log.setDay(curDate);
+            log.setGoal(WorkLog.DEFAULT_GOAL);
             log.setUserId(user.getUserId());
             log = entityManager.merge(log);
         }

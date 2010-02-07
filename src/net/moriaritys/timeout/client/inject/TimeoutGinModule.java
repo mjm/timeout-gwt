@@ -8,6 +8,8 @@ import net.customware.gwt.presenter.client.gin.AbstractPresenterModule;
 import net.customware.gwt.presenter.client.place.PlaceManager;
 import net.moriaritys.timeout.client.controller.TimeoutController;
 import net.moriaritys.timeout.client.controller.TimeoutPlaceManager;
+import net.moriaritys.timeout.client.convert.DurationConverter;
+import net.moriaritys.timeout.client.convert.TimeConverter;
 import net.moriaritys.timeout.client.entries.EntriesPresenter;
 import net.moriaritys.timeout.client.entries.EntriesView;
 import net.moriaritys.timeout.client.entries.EntryRowPresenter;
@@ -29,11 +31,14 @@ public class TimeoutGinModule extends AbstractPresenterModule {
     @Override
     protected void configure() {
         bind(EventBus.class).to(DefaultEventBus.class);
+
         bind(PlaceManager.class).to(TimeoutPlaceManager.class);
+        bind(TodayPlace.class);
 
         bind(String.class).annotatedWith(CurrentDate.class).toProvider(CurrentDateProvider.class);
 
-        bind(TodayPlace.class);
+        bind(DurationConverter.class);
+        bind(TimeConverter.class);
 
         bind(TimeoutController.class);
 

@@ -5,11 +5,13 @@ import com.google.gwt.event.dom.client.HasClickHandlers;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.ui.*;
+import com.google.inject.Singleton;
 import net.moriaritys.timeout.client.timer.TimerPresenter.Display;
 
 /**
  *
  */
+@Singleton
 public class TimerView extends Composite implements Display {
     interface Binder extends UiBinder<FlowPanel, TimerView> {
     }

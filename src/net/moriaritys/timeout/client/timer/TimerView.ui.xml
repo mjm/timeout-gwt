@@ -30,7 +30,7 @@
                         <g:Label ui:field="startLabel"/>
                     </td>
                     <td colspan="2" width="33%">
-                        <g:TextBox ui:field="hoursNeededField"/>
+                        <g:TextBox ui:field="hoursNeededField" value="0:00"/>
                     </td>
                     <td colspan="2" width="33%">
                         <g:Label ui:field="estimatedDepartureLabel"/>

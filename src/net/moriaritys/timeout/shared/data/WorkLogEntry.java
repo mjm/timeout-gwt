@@ -54,4 +54,18 @@ public class WorkLogEntry implements Serializable {
     public void setEndTime(final Date endTime) {
         this.endTime = endTime;
     }
+
+    public Integer getTimeElapsed() {
+        if (startTime == null) {
+            return null;
+        }
+
+        long start = startTime.getTime();
+        Date end = endTime == null ? new Date() : endTime;
+        return (int) ((end.getTime() - start) / 1000);
+    }
+
+    public boolean isRunning() {
+        return startTime != null && endTime == null;
+    }
 }
