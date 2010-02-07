@@ -37,10 +37,8 @@ public class JpaWorkLogEntryDao implements WorkLogEntryDao {
     public WorkLogEntry getRunningEntry(final User user, final WorkLog log) {
         try {
             Query query = entityManager.createQuery(
-                    "select e from WorkLogEntry e join e.log l " +
-                            "where l.userId = :user and l.key = :key and e.endTime is null");
-            query.setParameter("user", user.getUserId());
-            query.setParameter("key", log.getKey());
+                    "select e from WorkLogEntry e where e.log = :log and e.endTime is null");
+            query.setParameter("log", log);
             return (WorkLogEntry) query.getSingleResult();
         } catch (final NoResultException e) {
             WorkLogEntry entry = new WorkLogEntry();

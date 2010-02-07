@@ -9,12 +9,15 @@ import com.google.gwt.user.client.ui.HasText;
 import com.google.gwt.user.client.ui.HasValue;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
+import net.customware.gwt.dispatch.client.DispatchAsync;
 import net.customware.gwt.presenter.client.EventBus;
 import net.customware.gwt.presenter.client.widget.WidgetDisplay;
 import net.customware.gwt.presenter.client.widget.WidgetPresenter;
+import net.moriaritys.timeout.client.callback.GotLogEntry;
 import net.moriaritys.timeout.client.convert.DurationConverter;
 import net.moriaritys.timeout.client.convert.TimeConverter;
 import net.moriaritys.timeout.client.timer.TimerPresenter.Display;
+import net.moriaritys.timeout.shared.action.StartTimer;
 import net.moriaritys.timeout.shared.data.WorkLog;
 import net.moriaritys.timeout.shared.data.WorkLogEntry;
 
@@ -47,21 +50,28 @@ public class TimerPresenter extends WidgetPresenter<Display> {
     private class StartStopClicked implements ClickHandler {
         @Override
         public void onClick(final ClickEvent clickEvent) {
-
+            dispatch.execute(new StartTimer(log), new GotLogEntry() {
+                @Override
+                protected void got(final WorkLogEntry entry) {
+                    setEntry(entry);
+                }
+            });
         }
     }
 
     private WorkLog log;
     private WorkLogEntry entry;
 
+    private final DispatchAsync dispatch;
     private final DurationConverter durationConverter;
     private final TimeConverter timeConverter;
 
     @Inject
-    TimerPresenter(final Display display, final EventBus eventBus,
+    TimerPresenter(final Display display, final EventBus eventBus, final DispatchAsync dispatch,
                    final DurationConverter durationConverter,
                    final TimeConverter timeConverter) {
         super(display, eventBus);
+        this.dispatch = dispatch;
         this.durationConverter = durationConverter;
         this.timeConverter = timeConverter;
 

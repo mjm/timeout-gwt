@@ -25,7 +25,7 @@ public class WorkLog implements Serializable {
     @Basic(optional = false)
     private String userId;
 
-    @OneToMany(mappedBy = "log")
+    @OneToMany(mappedBy = "log", fetch = FetchType.EAGER)
     private List<WorkLogEntry> entries;
 
     public Long getKey() {
